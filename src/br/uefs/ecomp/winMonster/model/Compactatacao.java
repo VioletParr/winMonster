@@ -18,6 +18,7 @@ public class Compactatacao {
 			while (iterador.temProximo()){ // DUVIDA: É suficiente? E último item?
 				//modificando umas coisa aqui so pra ver o que rola
 				// segunda modificacao experimentives
+				// terceira modificacao
 			}
 		
 	}
