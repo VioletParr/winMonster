@@ -17,6 +17,7 @@ public class Compactatacao {
 		// While para ler arquivo inteiro, char por char.
 			while (iterador.temProximo()){ // DUVIDA: É suficiente? E último item?
 				//modificando umas coisa aqui so pra ver o que rola
+				// segunda modificacao experimentives
 			}
 		
 	}
