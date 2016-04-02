@@ -1,5 +1,9 @@
-package br.ecomp.uefs.winMonster.util;
+package br.uefs.ecomp.winMonster.util;
 
+/**
+ * @author guiga
+ *
+ */
 public class No implements Comparable{
 
 	private No noDireita;
@@ -18,7 +22,7 @@ public class No implements Comparable{
 		this.setCh(ch);
 	}
 	
-	public boolean isFolha()
+	public boolean ehFolha()
 	{
 		return noEsquerda == null && noDireita == null;
 	}
@@ -49,4 +53,18 @@ public class No implements Comparable{
 	{
 		this.freq = freq;
 	}
+	
+	public int getFreq(){
+		return freq;
+	}
+
+	public No getNoDireita() {
+		return noDireita;
+	}
+
+	public No getNoEsquerda() {
+		return noEsquerda;
+	}
+	
+	
 }

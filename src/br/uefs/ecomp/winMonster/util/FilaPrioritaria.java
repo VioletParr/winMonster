@@ -4,15 +4,13 @@ import br.uefs.ecomp.winMonster.util.Iterador;
 import br.uefs.ecomp.winMonster.util.Celula;
 import br.uefs.ecomp.winMonster.util.MeuIterador;
 
-public class FilaPrioritaria implements IFila {
+public class FilaPrioritaria {
 
 	// Atributos
 	private Celula cabeca = new Celula();
 	private Celula ultima;
 	
-	@Override
 	public boolean estaVazia() {
-		// TODO Auto-generated method stub
 		if (cabeca.getProximo() == null){
 			return true;
 		}
@@ -26,7 +24,6 @@ public class FilaPrioritaria implements IFila {
 	 * Obtem o tamanho da lista
 	 * @return Tamanho da lista
 	 */
-	@Override
 	public int obterTamanho() {
 		int n = 0;
 		Iterador iterador = new MeuIterador(cabeca);
@@ -41,7 +38,7 @@ public class FilaPrioritaria implements IFila {
 	 * Cria celula e insere objeto do parametro no inicio
 	 * @param o
 	 */
-	public void inserirInicio(Object o)
+	private void inserirInicio(Object o)
 	{
 		Celula novaCelula = new Celula(o);
 		if (estaVazia()){ // Caso a lista esteja vazia, somente insere.
@@ -58,7 +55,7 @@ public class FilaPrioritaria implements IFila {
 	 * Cria celula e insere objeto do parametro no final
 	 * @param o
 	 */
-	public void inserirFinal(Object o) 
+	private void inserirFinal(Object o) 
 	{
 		Celula novaCelula = new Celula(o);
 		if (estaVazia()){
@@ -71,7 +68,7 @@ public class FilaPrioritaria implements IFila {
 		}
 	}
 	
-	public void inserir(int index, Object o){
+	private void inserir(int index, Object o){
 		if (index < 1) {
 			inserirInicio(o);
 			return;
@@ -92,6 +89,34 @@ public class FilaPrioritaria implements IFila {
 		celulaAux.setProximo(celulaNova); // Insere na lista
 		return;
 	}
+	
+	public boolean inserirOrdenado(boolean crescente, int index, double valorIndex, double valorInserido, Object o){
+		if (index < 1){
+			System.out.println("Valor de index invalido!");
+		}
+		if (index > obterTamanho()){
+			inserirFinal(o);
+			return true;
+		}
+		if (crescente){ // Caso esteja ordenando em ordem crescente
+			if (valorIndex < valorInserido){
+				return false;
+			}
+			else {
+				inserir(index, o);
+				return true;
+			}
+		}
+		else{ // Caso esteja ordenando em ordem decrescente
+			if (valorIndex < valorInserido){
+				inserir(index, o);
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
 
 	public Object removerInicio() {
 		if (removerVazia()){ // Caso esteja vazia nao remove nada e printa erro
@@ -105,7 +130,6 @@ public class FilaPrioritaria implements IFila {
 		return removido;
 	}
 
-	@Override
 	public Object recuperarInicio() {
 		if (estaVazia()){
 			System.out.println("Nao ha item para ser recuperado");
@@ -115,7 +139,6 @@ public class FilaPrioritaria implements IFila {
 		return recuperado;
 	}
 
-	@Override
 	public Iterador iterador() {
 		Iterador iterador = new MeuIterador(cabeca);
 		return iterador;
