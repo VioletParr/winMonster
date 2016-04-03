@@ -4,10 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileReader; 
 import java.io.IOException; 
 import java.io.File;
+import br.ecomp.uefs.winMonster.model.Huffman;
 
 
 public class Controller {
 	
+		Huffman arvoreHuffman = new Huffman();
+
 	// Testando leitura de arquivo 		
 	public String lerArquivo(File arquivo) throws IOException
 	{
@@ -27,6 +30,12 @@ public class Controller {
 			System.out.println(texto + " " + funcaoHash(texto)); // Printa String lida. Por enquanto, só para efeito de teste 
 			return texto;
 	}	
+	
+	// Chama métodos da classe Huffman para criação da árvore e compactação do arquivo 
+	public void compactarArquivo(String texto){
+		arvoreHuffman.construirVetorFreq(texto);
+	}
+	
 	
 	// Cria um código hash que será utilizado para verificar integridade do arquivo 
 	public static int funcaoHash(String string){
