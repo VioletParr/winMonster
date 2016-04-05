@@ -2,11 +2,16 @@ package br.ecomp.uefs.winMonster.controller;
 
 import java.io.BufferedReader;
 import java.io.FileReader; 
-import java.io.IOException; 
+import java.io.IOException;
+
+import br.ecomp.uefs.winMonster.model.Huffman;
+
 import java.io.File;
 
 
 public class Controller {
+	
+	Huffman arvoreHuffman = new Huffman();
 	
 	// Testando leitura de arquivo 		
 	public String lerArquivo(File arquivo) throws IOException
@@ -21,25 +26,28 @@ public class Controller {
 			{
 				texto += aux; // Linhas lidas são concatenadas à String texto
 			}
-		
-			
 			ler.close();
-			System.out.println(texto + " " + funcaoHash(texto)); // Printa String lida. Por enquanto, só para efeito de teste 
+			
+			// Printa String lida, só para efeito de teste. APAGAR DEPOIS
+			System.out.println(texto + " " + funcaoHash(texto));  
 			return texto;
 	}	
+	
+	// Chama métodos da classe Huffman para criação da árvore e compactação do arquivo
+	public void compactarArquivo(File arquivo) throws IOException{
+		String texto = this.lerArquivo(arquivo);
+		arvoreHuffman.compactar(texto);
+	}
 	
 	// Cria um código hash que será utilizado para verificar integridade do arquivo 
 	public static int funcaoHash(String string){
 			
 			int codigoHash = 0; 
-			for (int i = 0; i < string.length(); i++) // Enquanto não encontrar caractere nulo,
-													  // percorre a String recebida 
+			for (int i = 0; i < string.length(); i++) 
 			{
-				char caractere = string.charAt(i); // caractere recebe o valor do char econtrado 
-												   // na posição i da String
+				char caractere = string.charAt(i); 
 				
-				int ascii = caractere; // ascii recebe o valor númerico correspondente ao caracter
-				// na tabela ASCII
+				int ascii = caractere; 
 				
 				// O código final corresponde à soma do valor númerico de todos os caracteres do texto
 				codigoHash += ascii; 
