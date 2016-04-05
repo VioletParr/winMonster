@@ -1,8 +1,8 @@
 package br.uefs.ecomp.winMonster.model;
 
-import br.ecomp.uefs.winMonster.util.FilaPrioritaria;
-import br.ecomp.uefs.winMonster.util.MeuIterador;
-import br.ecomp.uefs.winMonster.util.No;
+import br.uefs.ecomp.winMonster.util.FilaPrioritaria;
+import br.uefs.ecomp.winMonster.util.MeuIterador;
+import br.uefs.ecomp.winMonster.util.No;
 
 public class Huffman {
 	

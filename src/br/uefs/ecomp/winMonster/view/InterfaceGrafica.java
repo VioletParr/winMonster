@@ -1,4 +1,4 @@
-package br.ecomp.uefs.winMonster.view;
+package br.uefs.ecomp.winMonster.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,5 +50,6 @@ public class InterfaceGrafica{
 		janela.pack(); 
 		janela.setVisible(true); // Janela será visível	
 		
+	}
 }
 

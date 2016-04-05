@@ -1,10 +1,10 @@
-package br.ecomp.uefs.winMonster.controller;
+package br.uefs.ecomp.winMonster.controller;
 
 import java.io.BufferedReader;
 import java.io.FileReader; 
 import java.io.IOException;
 
-import br.ecomp.uefs.winMonster.model.Huffman;
+import br.uefs.ecomp.winMonster.model.Huffman;
 
 import java.io.File;
 

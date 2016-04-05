@@ -1,4 +1,4 @@
-package br.ecomp.uefs.winMonster.view;
+package br.uefs.ecomp.winMonster.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

@@ -1,4 +1,4 @@
-package br.ecomp.uefs.winMonster.view;
+package br.uefs.ecomp.winMonster.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
-import br.ecomp.uefs.winMonster.controller.Controller;
+import br.uefs.ecomp.winMonster.controller.Controller;
 
 /**
  * Classe que implementa a interface ActionListener para indicar qual ação deve ser realizada quando o botaoCompactar for ativado 
