@@ -25,6 +25,7 @@ public class Controller {
 			while((aux = ler.readLine()) != null)
 			{
 				texto += aux; // Linhas lidas são concatenadas à String texto
+				texto += '\n';
 			}
 			ler.close();
 			
@@ -35,8 +36,23 @@ public class Controller {
 	
 	// Chama métodos da classe Huffman para criação da árvore e compactação do arquivo
 	public void compactarArquivo(File arquivo) throws IOException{
+		
+		// Le arquivo e transfere pra String texto
 		String texto = this.lerArquivo(arquivo);
-		arvoreHuffman.compactar(texto);
+		
+		// Cria novo arquivo, que será usado pra saída do arquivo compactado
+		File saida = new File (arquivo.getAbsolutePath() + ".monster");
+		
+		// Caso consiga criar novo arquivo, compacta.
+		if (saida.createNewFile()){
+			// Compacta
+			arvoreHuffman.compactar(texto, saida);
+		} else{ // Caso não consiga, pede ao usuário pra digitar nome de saída do arquivo 
+			// Digite nome de saida blabla
+			// Depois compacta
+		}
+		
+		
 	}
 	
 	// Cria um código hash que será utilizado para verificar integridade do arquivo 
