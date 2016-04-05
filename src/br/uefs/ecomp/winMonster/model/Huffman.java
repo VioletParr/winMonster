@@ -1,22 +1,25 @@
 package br.uefs.ecomp.winMonster.model;
 
-import br.uefs.ecomp.winMonster.util.FilaPrioritaria;
-import br.uefs.ecomp.winMonster.util.Iterador;
-import br.uefs.ecomp.winMonster.util.No;
+import br.ecomp.uefs.winMonster.util.FilaPrioritaria;
+import br.ecomp.uefs.winMonster.util.MeuIterador;
+import br.ecomp.uefs.winMonster.util.No;
 
 public class Huffman {
 	
 	// Baseado no site http://www.ime.usp.br/~pf/estruturas-de-dados/aulas/huffman.html
 	
 	/**
-	 * Constroi vetor de frequencias dos caracteres em um determinado texto
+	 * Constroi vetor de frequencias dos caracteres em uma determinada String
 	 */
-	private int[] construirVetorFreq(){
-		char c;
+	private int[] construirVetorFreq(String texto){
+		char c = 0;
 		int[] ascii = new int[256];
-		// Arquivo
-		// le char
-		ascii[c]++;
+
+		for(int i = 0; i < texto.length(); i++)
+		{
+			c = texto.charAt(i);
+			ascii[c]++;
+		}
 		return ascii;
 	}
 	
@@ -27,29 +30,38 @@ public class Huffman {
 	private No construirArvore(int[] ascii){
 		
 		FilaPrioritaria fila = new FilaPrioritaria();
-		Iterador iterador;
+		MeuIterador iterador;
 		int index;
 
 		for (char c = 0; c < 256; c++){
 			if (ascii[c] > 0){ // Se o char for usado
 				index = 0;
-				iterador = fila.iterador();
+				iterador = (MeuIterador) fila.iterador();
 				No no = new No(null, null, ascii[c], c); // Cria No do char
+				int freq = 0;
 				if (fila.estaVazia()){ // Se fila de Nos estiver vazia, insere na primeira posicao
 					fila.inserirOrdenado(true, 1, 3, 2, no);
 				} else{ // Caso contrario percorre a fila até achar o local certo de inserção.
-					while (!(fila.inserirOrdenado(true, index++, ((No) iterador.obterProximo()).getFreq(), ascii[c], no))){} // Insere na fila
+					while (!(fila.inserirOrdenado(true, ++index, freq, no.getFreq(), no)) && iterador.obterProximo() != null){
+						freq = ((No)iterador.getAtual().getElemento()).getFreq();
+				}
+				
+					} // Insere na fila
 				}
 			}
-		}
+
 		
 		while (fila.obterTamanho() > 1){
 			index = 0;
-			iterador = fila.iterador();
+			iterador = (MeuIterador) fila.iterador();
 			No menor = (No) fila.removerInicio();
 			No segundoMenor = (No)  fila.removerInicio();
 			No pai = new No(menor, segundoMenor, menor.getFreq() + segundoMenor.getFreq(), '\0');
-			while (!(fila.inserirOrdenado(true, index++, ((No) iterador.obterProximo()).getFreq(), pai.getFreq(), pai))){}
+			int freq = 0;
+			
+			while (!(fila.inserirOrdenado(true, ++index, freq, pai.getFreq(), pai)) && iterador.obterProximo() != null){
+				freq =((No)iterador.getAtual().getElemento()).getFreq();
+			}
 		}
 		
 		return (No) fila.removerInicio();
@@ -86,11 +98,14 @@ public class Huffman {
 	public void compactar(String texto){
 
 		No raiz;
-		raiz = construirArvore(construirVetorFreq());
+		
+		raiz = construirArvore(construirVetorFreq(texto));
 		
 		String[] codigos;
 		codigos = codificarArvore(raiz);
 		
+		// Printando mensagem só pra saber até onde tá rodando. APAGAR DEPOIS
+		System.out.println("Chegamos aqui");
 		
 		// Escrever a arvore no arquivo
 		

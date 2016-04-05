@@ -1,8 +1,6 @@
 package br.uefs.ecomp.winMonster.util;
 
-import br.uefs.ecomp.sisNema.model.Comprador;
-import br.uefs.ecomp.sisNema.util.Iterador;
-import br.uefs.ecomp.sisNema.util.Lista;
+
 
 public class Lista implements ILista {
 
@@ -293,91 +291,6 @@ public class Lista implements ILista {
 			return false;
 		}
 	}
-	
-	/**
-	 * Ordena lista usando metodo mergeSort
-	 * @param listaEsquerda
-	 * @return
-	 */
-	private Lista mergeSort(){
-
-		// Caso lista tenha tamanho 0 ou 1, ela já está ordenada.
-		if (this.obterTamanho() < 2){
-			return this;
-		}
-		
-		// Se lista tiver tamanho > 2,
-		// divida-a na metade, ordene parte esquerda, depois direita, depois merge
-		
-		// listaDireita terá a parte direita e lista terá parte esquerda.
-		Lista listaDireita = this.dividirMetade();
-		this.mergeSort();
-		listaDireita.mergeSort();
-		
-		return merge(this, listaDireita);
-		
-	}
-	
-	/**
-	 * Combina duas listas de compradores em uma de acordo com uma, por ordem alfabética
-	 * @param listaEsquerda
-	 * @param listaDireita
-	 * @return
-	 */
-	private Lista merge (Lista listaEsquerda, Lista listaDireita){
-		Lista listaResultado = new Lista();
-		Iterador iteradorEsquerda = listaEsquerda.iterador();
-		Iterador iteradorDireita = listaDireita.iterador();
-		Comprador compradorEsquerda, compradorDireita;
-		compradorEsquerda = (Comprador) iteradorEsquerda.obterProximo();
-		compradorDireita = (Comprador) iteradorDireita.obterProximo();
-		boolean temEsquerda = true; // Confere se ainda ha elementos na esquerda
-		boolean temDireita = true; // Confere se ainda ha elementos na direita
-		
-		// Enquanto existir alguma lista, compara elemento da direita com o da esquerda e insere o menor.
-		while (temEsquerda && temDireita){
-			// Se o nome do comprador da esquerda for menor em ordem alfabetica do que o da direita,
-			// insira o comprador na lista resultado e incremente o iterador da lista esquerda.
-			if (compradorEsquerda.getNome().compareToIgnoreCase(compradorDireita.getNome()) < 0){
-				listaResultado.inserirFinal(compradorEsquerda);
-				if (iteradorEsquerda.temProximo()){
-					compradorEsquerda = (Comprador) iteradorEsquerda.obterProximo();
-				} else{
-					temEsquerda = false;
-				}
-			} else{ // Caso comprador da direita for menor, mesma coisa pra direita.
-				listaResultado.inserirFinal(compradorDireita);
-				if (iteradorDireita.temProximo()){
-					compradorDireita = (Comprador) iteradorDireita.obterProximo();
-				} else{
-					temDireita = false;
-				}
-			}
-		}
-		
-		
-		// Se ainda tem algo na lista da esquerda
-		while (temEsquerda){
-			listaResultado.inserirFinal(compradorEsquerda);
-			if (iteradorEsquerda.temProximo()){
-				compradorEsquerda = (Comprador) iteradorEsquerda.obterProximo();
-			} else{
-				temEsquerda = false;
-			}
-			
-		}
-		
-		// Se ainda tem algo na lista da direita
-		while (temDireita){
-			listaResultado.inserirFinal(compradorDireita);
-			if (iteradorDireita.temProximo()){
-				compradorDireita = (Comprador) iteradorDireita.obterProximo();
-			} else{
-				temDireita = false;
-			}
-		}
-		
-		return listaResultado;
-		
-	}
 }
+	
+
