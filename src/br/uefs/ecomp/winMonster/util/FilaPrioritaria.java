@@ -90,9 +90,20 @@ public class FilaPrioritaria {
 		return;
 	}
 	
+	/**
+	 * Insere ordenado em um determinado index da lista.
+	 * Compara valorIndex com valor e insere o objeto "o" caso esteja na posição.
+	 * Retorna verdadeiro caso tenha inserido, falso caso contrario. 
+	 * @param crescente
+	 * @param index
+	 * @param valorIndex
+	 * @param valorInserido
+	 * @param o
+	 * @return True if inserted, false if not.
+	 */
 	public boolean inserirOrdenado(boolean crescente, int index, double valorIndex, double valorInserido, Object o){
 		if (index < 1){
-			System.out.println("Valor de index invalido!");
+			return false;
 		}
 		if (index > obterTamanho()){
 			inserirFinal(o);

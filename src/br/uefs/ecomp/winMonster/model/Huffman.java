@@ -6,6 +6,7 @@ import br.uefs.ecomp.winMonster.util.No;
 
 public class Huffman {
 	
+	// Baseado no site http://www.ime.usp.br/~pf/estruturas-de-dados/aulas/huffman.html
 	
 	/**
 	 * Constroi vetor de frequencias dos caracteres em um determinado texto
@@ -82,7 +83,7 @@ public class Huffman {
 	}
 	
 	
-	public void compactar(){
+	public void compactar(String texto){
 
 		No raiz;
 		raiz = construirArvore(construirVetorFreq());
