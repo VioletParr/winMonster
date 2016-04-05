@@ -1,5 +1,9 @@
 package br.uefs.ecomp.winMonster.model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import br.uefs.ecomp.winMonster.util.BinarIO;
 import br.uefs.ecomp.winMonster.util.FilaPrioritaria;
 import br.uefs.ecomp.winMonster.util.MeuIterador;
 import br.uefs.ecomp.winMonster.util.No;
@@ -94,27 +98,57 @@ public class Huffman {
 		codificarNo(codigos, no.getNoDireita(), codigo + '1');
 	}
 	
+	private void escreverArvore(No raiz, BinarIO arquivoSaida){
+		if (raiz.ehFolha()){
+			arquivoSaida.escrever(true);
+			arquivoSaida.escrever(raiz.getCh());
+			return;
+		}
+		arquivoSaida.escrever(false);
+		escreverArvore(raiz.getNoEsquerda(), arquivoSaida);
+		escreverArvore(raiz.getNoDireita(), arquivoSaida);
+	}
 	
-	public void compactar(String texto){
 
+	
+	public void compactar(String texto, File arquivoSaida) throws FileNotFoundException{
+
+		//Constroi arvore
 		No raiz;
-		
 		raiz = construirArvore(construirVetorFreq(texto));
 		
+		// Constroi String com codigos da arvore
 		String[] codigos;
 		codigos = codificarArvore(raiz);
 		
 		// Printando mensagem só pra saber até onde tá rodando. APAGAR DEPOIS
 		System.out.println("Chegamos aqui");
 		
-		// Escrever a arvore no arquivo
+
+		// Cria instancia de BinarIO pra poder escrever no arquivo de saida (compactado)
+		BinarIO compactado = new BinarIO(arquivoSaida);
+		
+
+		// Escreve a arvore no arquivo
+		escreverArvore(raiz, compactado);
 		
 		// escrever tamanho?
+		compactado.escrever(texto.length());
+		
 		
 		// Escrever codigo
+		char[] entrada = texto.toCharArray();
+		String codigo;
+		for (int i = 0; i < entrada.length; i++) {
+		      codigo = codigos[entrada[i]];
+		      for (int j = 0; j < codigo.length(); j++)
+		      if (codigo.charAt(j) == '1')
+		           compactado.escrever(true);
+		      else compactado.escrever(false);
+		}
 		
 		
-		
-		
+		// Fecha arquivo escrevendo tudo que contininha no buffer
+		compactado.fechar();
 	}
 }

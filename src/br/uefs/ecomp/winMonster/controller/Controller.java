@@ -21,11 +21,15 @@ public class Controller {
 			String aux = ""; // Inicializa uma String vazia
 			String texto = "";
 			
-			// Enquanto não for encontrado caractere nulo, percorre o arquivo 
+			
+			// Enquanto não for encontrado caractere nulo, percorre o arquivo
+			int n = 1;
 			while((aux = ler.readLine()) != null)
 			{
 				texto += aux; // Linhas lidas são concatenadas à String texto
 				texto += '\n';
+				System.out.println("Lendo linha" + n);
+				n++;
 			}
 			ler.close();
 			
@@ -48,8 +52,8 @@ public class Controller {
 			// Compacta
 			arvoreHuffman.compactar(texto, saida);
 		} else{ // Caso não consiga, pede ao usuário pra digitar nome de saída do arquivo 
-			// Digite nome de saida blabla
-			// Depois compacta
+			 Digite nome de saida blabla
+			 Depois compacta
 		}
 		
 		
