@@ -1,78 +1,44 @@
 package br.uefs.ecomp.winMonster.controller;
 
-import java.io.BufferedReader;
-import java.io.FileReader; 
+import java.io.File;
 import java.io.IOException;
 
-import br.uefs.ecomp.winMonster.model.Huffman;
-
-import java.io.File;
+import br.ecomp.uefs.winMonster.model.Huffman;
+import br.ecomp.uefs.winMonster.util.Arquivo;
 
 
 public class Controller {
 	
+	Arquivo manipulaArquivo = new Arquivo();
 	Huffman arvoreHuffman = new Huffman();
 	
-	// Testando leitura de arquivo 		
-	public String lerArquivo(File arquivo) throws IOException
-	{
-			BufferedReader ler = new BufferedReader(new FileReader(arquivo));
-			
-			String aux = ""; // Inicializa uma String vazia
-			String texto = "";
-			
-			
-			// Enquanto não for encontrado caractere nulo, percorre o arquivo
-			int n = 1;
-			while((aux = ler.readLine()) != null)
-			{
-				texto += aux; // Linhas lidas são concatenadas à String texto
-				texto += '\n';
-				System.out.println("Lendo linha" + n);
-				n++;
-			}
-			ler.close();
-			
-			// Printa String lida, só para efeito de teste. APAGAR DEPOIS
-			System.out.println(texto + " " + funcaoHash(texto));  
-			return texto;
-	}	
-	
 	// Chama métodos da classe Huffman para criação da árvore e compactação do arquivo
-	public void compactarArquivo(File arquivo) throws IOException{
-		
-		// Le arquivo e transfere pra String texto
-		String texto = this.lerArquivo(arquivo);
-		
-		// Cria novo arquivo, que será usado pra saída do arquivo compactado
-		File saida = new File (arquivo.getAbsolutePath() + ".monster");
-		
-		// Caso consiga criar novo arquivo, compacta.
-		if (saida.createNewFile()){
-			// Compacta
-			arvoreHuffman.compactar(texto, saida);
-		} else{ // Caso não consiga, pede ao usuário pra digitar nome de saída do arquivo 
-			 Digite nome de saida blabla
-			 Depois compacta
-		}
-		
-		
-	}
-	
-	// Cria um código hash que será utilizado para verificar integridade do arquivo 
-	public static int funcaoHash(String string){
+		public void compactarArquivo(File arquivo) throws IOException{
 			
-			int codigoHash = 0; 
-			for (int i = 0; i < string.length(); i++) 
-			{
-				char caractere = string.charAt(i); 
+			// Le arquivo e transfere pra String texto
+			String texto = manipulaArquivo.lerArquivo(arquivo);
+			
+			// Cria novo arquivo, que será usado pra saída do arquivo compactado
+			File saida = new File (arquivo.getAbsolutePath() + ".monster");
+			
+			// Caso consiga criar novo arquivo, compacta.
+			if (saida.createNewFile()){
+				// Compacta
+				arvoreHuffman.compactar(texto, saida);
+			} else{ // Caso não consiga, pede ao usuário pra digitar nome de saída do arquivo 
 				
-				int ascii = caractere; 
-				
-				// O código final corresponde à soma do valor númerico de todos os caracteres do texto
-				codigoHash += ascii; 
+//				 Digite nome de saida blabla
+//				 Depois compacta
 			}
-			return codigoHash;
-		}
+}
+
+		public void descompactarArquivo(File arquivoDescompactar){
 			
+			// Instancia novo arquivo. Substitui .monster por "", para que arquivo volte à extensão original
+			File arquivo = new File(arquivoDescompactar.getAbsolutePath().replace(".monster", ""));
+			
+			// Passa arquivo para método de descompactar, que chama:
+			// manipulaArquivo.escreverArquivo(texto, arquivo), passando String recebida por 
+			// um método de descompactação que retorna a String com o texto original
+		}
 }
