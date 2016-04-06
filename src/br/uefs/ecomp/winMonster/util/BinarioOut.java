@@ -12,14 +12,15 @@ import java.io.IOException;
  *	
  *	Classe que escreve e lê em bits em um determinado arquivo, fornecido como parâmetro no construtor da classe. 
  */
-public class BinarIO {
+public class BinarioOut {
 
 	private int buffer, n; // Buffer e contador de quantos bits existem no buffer.
     private BufferedOutputStream out;
     
-    public BinarIO(File arquivo) throws FileNotFoundException {
+    public BinarioOut(File arquivo) throws FileNotFoundException {
     	this.out = new BufferedOutputStream (new FileOutputStream(arquivo));
     }
+    
     
     /**
      * Escreve o bit numa cadeia de bits, que mais tarde será escrita e concatenada no arquivo de saída
@@ -142,8 +143,4 @@ public class BinarIO {
     public void escrever(char c){
     	escreverByte(c);
     }
-    
-    
-    
-    
 }
